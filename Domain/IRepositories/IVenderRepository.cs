@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Domain.IRepositories
 {
-    internal interface IVenderRepository
+    public interface IVenderRepository
     {
-        Task<IEnumerable<Vender>> GetAllAsync();
+        Task<IEnumerable<Vender>> GetAllAsync(IDictionary<string, string> query);
 
-        Task<Vender?> GetById(Guid id);
+        Task<Vender?> GetByIdAsync(Guid id);
 
         Task<Vender?> UpdateByIdAsync(Guid id, Vender vender);
 

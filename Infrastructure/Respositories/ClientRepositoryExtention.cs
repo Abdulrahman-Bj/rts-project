@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Respositories
 {
-    public static class UserRepositoryExtention
+    public static class ClientRepositoryExtention
     {
 
-        public static IServiceCollection AddUserRepository(this IServiceCollection services)
+        public static IServiceCollection AddClientRepository(this IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
             return services;
         }
     }

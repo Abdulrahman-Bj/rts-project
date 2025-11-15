@@ -1,4 +1,6 @@
 ﻿using Application.Converters;
+using Application.Mappings;
+using Application.Services;
 using Infrastructure.Extentions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,8 +17,13 @@ namespace Application.Extentions
         {
             // Add application services here
             services.AddInfrastructureServices();
-            services.AddUserService();
+            services.AddScoped<IClientService, ClientServices>();
+            services.AddScoped<IAdminServices, AdminServices>();
+            services.AddScoped<IHotelServices, HotelServices>();
+            services.AddScoped<IVenderServices, VenderServices>();
+            services.AddScoped<IRoomServices, RoomServices>();
             services.AddCityService();
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfiles>());
             return services;
         }
     }

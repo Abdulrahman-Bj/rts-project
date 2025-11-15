@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Application.DTOs
 {
-    public class Room
+    public class UpdateRoomRequestDto
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public RoomType Type { get; set; }
@@ -21,11 +19,6 @@ namespace Domain.Entities
 
         public string[] Images { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
-        public DateTime? UpdateAt { get; set; }
-
-        // Navigation property
-        public Hotel Hotel { get; set; }
+        public DateTime UpdatedAt => DateTime.UtcNow;
     }
 }

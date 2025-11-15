@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 
 namespace Application.DTOs
 {
-    public class UpdateUserRequestDto
+    public class UpdateClientRequestDto
     {
-        public string Username { get; set; }
-
-        public string Password { get; set; }
-
+        public string Phone { get; set; }
+        public string CountryCode { get; set; }
         public string Name { get; set; }
-
         public Guid CityId { get; set; }
-
-        public string Type { get; set; }
-
+        public string Type => "Client";
         public DateTime? UpdateAt => DateTime.UtcNow;
     }
 }

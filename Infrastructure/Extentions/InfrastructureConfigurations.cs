@@ -17,13 +17,19 @@ namespace Infrastructure.Extentions
         {
             services.AddDbContext<APIServicesDbContext>(options =>
             {
-                options.UseSqlServer("Server=ABDULRAHMAN\\SQLEXPRESS;Database=APICustomerServices;User Id=sa;Password=test1234;TrustServerCertificate=True;Trusted_Connection=true",sqlOptions => sqlOptions.MigrationsAssembly("CustomerServicesAPI")); ;
+                options.UseSqlServer("Server=ABDULRAHMAN\\SQLEXPRESS;Database=APICustomerServices;User Id=sa;Password=test1234;TrustServerCertificate=True;Trusted_Connection=true",sqlOptions => sqlOptions.MigrationsAssembly("Infrastructure")); ;
         });
-            services.AddUserRepository();
+            services.AddClientRepository();
             services.AddCityRepository();
+            services.AddAdminRepository();
+            services.AddHotelRepository();
+            services.AddVenderRepository();
+            services.AddRoomRepository();
 
             return services;
 
         }
     }
 }
+
+

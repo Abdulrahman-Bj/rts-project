@@ -66,6 +66,7 @@ namespace Infrastructure.Respositories
 
 
             exitingCity.Name = city.Name;
+            exitingCity.UpdateAt = city.UpdateAt;
 
             await dbContext.SaveChangesAsync();
 

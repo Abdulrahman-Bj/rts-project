@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public sealed class Vender : User
+    public sealed class Admin : User
     {
         public string Username { get; set; }
-        public Guid HotelId { get; set; }
         public string Password { get; set; }
-
         public string PasswordConfirm { get; set; }
-
-        // Navigation property
-        public Hotel Hotel { get; set; }
     }
 }
