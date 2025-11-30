@@ -72,7 +72,7 @@ namespace Infrastructure.Respositories
             exitingHotel.CoverImage = hotel.CoverImage;
             exitingHotel.Images = hotel.Images;
             exitingHotel.Address = hotel.Address;
-
+            exitingHotel.UpdatedAt = hotel.UpdatedAt;
             await dbContext.SaveChangesAsync();
 
             return exitingHotel;

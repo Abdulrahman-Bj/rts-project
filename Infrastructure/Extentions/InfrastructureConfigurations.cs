@@ -1,5 +1,7 @@
-﻿using Infrastructure.Data;
+﻿using Application.Services;
+using Infrastructure.Data;
 using Infrastructure.Respositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,7 +19,7 @@ namespace Infrastructure.Extentions
         {
             services.AddDbContext<APIServicesDbContext>(options =>
             {
-                options.UseSqlServer("Server=ABDULRAHMAN\\SQLEXPRESS;Database=APICustomerServices;User Id=sa;Password=test1234;TrustServerCertificate=True;Trusted_Connection=true",sqlOptions => sqlOptions.MigrationsAssembly("Infrastructure")); ;
+                options.UseSqlServer("Server=ABDULRAHMAN\\SQLEXPRESS01;Database=APIReservationServices;TrustServerCertificate=True;Trusted_Connection=true", sqlOptions => sqlOptions.MigrationsAssembly("Infrastructure")); ;
         });
             services.AddClientRepository();
             services.AddCityRepository();
@@ -25,6 +27,10 @@ namespace Infrastructure.Extentions
             services.AddHotelRepository();
             services.AddVenderRepository();
             services.AddRoomRepository();
+            services.AddServicesRepository();
+            services.AddReservationRepository();
+            services.AddCurrencyRepository();
+            services.AddScoped<IFileServices, FileServices>();
 
             return services;
 

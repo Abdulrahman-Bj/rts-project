@@ -8,18 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces;
 
 namespace Application.Services
 {
-    public interface IClientService
-    {
-        Task<IEnumerable<ClientDto>> GetAllAsync(IDictionary<string, string> queryParams);
-        Task<ClientDto?> GetById(Guid id);
-        Task<ClientDto?> UpdateByIdAsync(Guid id, UpdateClientRequestDto updateClientRequestDto);
-        Task<ClientDto> CreateAsync(AddClientRequestDto addClientRequestDto);
-        Task<bool> DeleteByIdAsync(Guid id);
 
-    }
     public class ClientServices : IClientService
     {
         private readonly IClientRepository _clientRepository;

@@ -1,6 +1,8 @@
 ﻿using Application.Converters;
 using Application.Mappings;
 using Application.Services;
+using Application.Interfaces;
+
 using Infrastructure.Extentions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -8,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Application.Validators;
 
 namespace Application.Extentions
 {
@@ -22,8 +27,14 @@ namespace Application.Extentions
             services.AddScoped<IHotelServices, HotelServices>();
             services.AddScoped<IVenderServices, VenderServices>();
             services.AddScoped<IRoomServices, RoomServices>();
+            services.AddScoped<IServiceServices, ServiceServices>();
+            services.AddScoped<IReservationServices, ReservationServices>();
+            services.AddScoped<ICurrencyServices, CurrencyServices>();
             services.AddCityService();
             services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfiles>());
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssembly(typeof(AddReservationValidator).Assembly);
+
             return services;
         }
     }

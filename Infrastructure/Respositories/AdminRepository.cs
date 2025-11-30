@@ -70,7 +70,7 @@ namespace Infrastructure.Respositories
 
             existingAdmin.Name = admin.Name;
             existingAdmin.Username = admin.Username;
-            existingAdmin.UpdateAt = admin.UpdateAt;
+            existingAdmin.UpdatedAt = admin.UpdatedAt;
             await dbContext.SaveChangesAsync();
 
             return existingAdmin;

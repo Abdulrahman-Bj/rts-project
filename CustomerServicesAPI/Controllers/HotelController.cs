@@ -1,5 +1,5 @@
 ﻿using Application.DTOs;
-using Application.Services;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,13 +7,15 @@ namespace CustomerServicesAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class HotelController : ControllerBase
+    public class HotelController : BaseController
     {
         private readonly IHotelServices hotelServices;
+        private readonly IRoomServices roomServices;
 
-        public HotelController(IHotelServices hotelServices)
+        public HotelController(IHotelServices hotelServices, IRoomServices roomServices)
         {
             this.hotelServices = hotelServices;
+            this.roomServices = roomServices;
         }
 
         [HttpGet]
@@ -21,7 +23,7 @@ namespace CustomerServicesAPI.Controllers
         {
             var queryParams = Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
             var hotels = await hotelServices.GetAllAsync(queryParams);
-            return Ok(hotels);
+            return ApiOk(hotels);
         }
 
         [HttpGet("{id}")]
@@ -32,7 +34,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(hotel);
+            return ApiOk(hotel);
         }
 
         [HttpPost]
@@ -50,7 +52,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(updatedHotel);
+            return ApiOk(updatedHotel);
         }
 
         [HttpDelete("{id}")]
@@ -62,6 +64,15 @@ namespace CustomerServicesAPI.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("{hotelId}/rooms")]
+        public async Task<IActionResult> GetAllRoomsByHotelId([FromRoute] Guid hotelId,[FromQuery] Guid currencyId,string? name, string? page, string? limit, string? sort)
+        {
+            var queryParams = Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
+            var rooms = await roomServices.GetRoomsByHotelIdAsync(hotelId, queryParams);
+            return ApiOk(rooms);
         }
     }
 }

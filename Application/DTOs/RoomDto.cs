@@ -16,15 +16,14 @@ namespace Application.DTOs
 
         public string Type { get; set; }
         public string Description { get; set; }
-        public Hotel Hotel { get; set; }
-
         public string CoverImage { get; set; }
 
-        public string[] Images { get; set; }
+        public ICollection<ServiceDto> services { get; set; } = new List<ServiceDto>();
+        public ICollection<RoomImageDto> Images { get; set; } = new List<RoomImageDto>();
 
         public DateTime CreatedAt { get; set; }
 
-        public DateTime? UpdateAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
     }
 }

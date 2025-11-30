@@ -31,9 +31,18 @@ public class ApiFeatures<T>
             var parameter = Expression.Parameter(typeof(T), "x");
             var property = Expression.Property(parameter, propertyInfo);
 
-            // Convert param.Value to the property type
-            object convertedValue = Convert.ChangeType(param.Value, propertyInfo.PropertyType);
+            object convertedValue;
 
+            // Convert param.Value to the property type
+            if (propertyInfo.PropertyType.IsEnum)
+            {
+                // Try to parse the enum (ignore case)
+                convertedValue = Enum.Parse(propertyInfo.PropertyType, param.Value.ToString(), true);
+            }
+            else
+            {
+                convertedValue = Convert.ChangeType(param.Value, propertyInfo.PropertyType);
+            }
             var constant = Expression.Constant(convertedValue);
             var equality = Expression.Equal(property, constant);
 

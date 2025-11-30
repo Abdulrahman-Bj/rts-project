@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces;
 
 namespace Application.Converters
 {
@@ -36,13 +37,13 @@ namespace Application.Converters
                 Id = city.Id,
                 Name = city.Name,
                 CreatedAt = city.CreatedAt,
-                UpdateAt = city.UpdateAt
+                UpdatedAt = city.UpdatedAt
             };
         }
 
         public static IServiceCollection AddCityService(this IServiceCollection services)
         {
-            services.AddScoped<ICityService, CityServices>();
+            services.AddScoped<ICityServices, CityServices>();
 
             return services;
         }

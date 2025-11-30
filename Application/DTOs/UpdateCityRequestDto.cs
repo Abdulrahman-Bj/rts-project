@@ -9,6 +9,6 @@ namespace Application.DTOs
     public class UpdateCityRequestDto
     {
         public string Name { get; set; }
-        public DateTime UpdateAt => DateTime.UtcNow;
+        public DateTime UpdatedAt => DateTime.UtcNow;
     }
 }

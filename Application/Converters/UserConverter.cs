@@ -22,7 +22,7 @@ namespace Application.Converters
         //        Name = dto.Name,
         //        CityId = dto.CityId,
         //        Type = dto.Type,
-        //        UpdateAt = dto.UpdateAt
+        //        UpdatedAt = dto.UpdatedAt
         //    };
         //}
         //public static User ToUserEntity (this AddClientRequestDto dto)
@@ -49,7 +49,7 @@ namespace Application.Converters
         //        CityId = user.CityId,
         //        Type = user.Type,
         //        CreatedAt = user.CreatedAt,
-        //        UpdateAt = user.UpdateAt
+        //        UpdatedAt = user.UpdatedAt
         //    };
         //}
 

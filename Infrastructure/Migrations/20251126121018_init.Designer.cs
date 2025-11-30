@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(APIServicesDbContext))]
-    [Migration("20251115063637_add hotel table")]
-    partial class addhoteltable
+    [Migration("20251126121018_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -74,7 +74,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -82,6 +82,73 @@ namespace Infrastructure.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Hotels");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Room", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CoverImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Images")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Service", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -106,7 +173,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -116,6 +183,21 @@ namespace Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("User");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("RoomService", b =>
+                {
+                    b.Property<Guid>("RoomsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ServicesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RoomsId", "ServicesId");
+
+                    b.HasIndex("ServicesId");
+
+                    b.ToTable("RoomService");
                 });
 
             modelBuilder.Entity("Domain.Entities.Admin", b =>
@@ -157,6 +239,42 @@ namespace Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("Client");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Vender", b =>
+                {
+                    b.HasBaseType("Domain.Entities.User");
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordConfirm")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("Users", t =>
+                        {
+                            t.Property("Password")
+                                .HasColumnName("Vender_Password");
+
+                            t.Property("PasswordConfirm")
+                                .HasColumnName("Vender_PasswordConfirm");
+
+                            t.Property("Username")
+                                .HasColumnName("Vender_Username");
+                        });
+
+                    b.HasDiscriminator().HasValue("Vender");
+                });
+
             modelBuilder.Entity("Domain.Entities.Hotel", b =>
                 {
                     b.HasOne("Domain.Entities.City", "City")
@@ -168,6 +286,32 @@ namespace Infrastructure.Migrations
                     b.Navigation("City");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Room", b =>
+                {
+                    b.HasOne("Domain.Entities.Hotel", "Hotel")
+                        .WithMany("Rooms")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+                });
+
+            modelBuilder.Entity("RoomService", b =>
+                {
+                    b.HasOne("Domain.Entities.Room", null)
+                        .WithMany()
+                        .HasForeignKey("RoomsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Service", null)
+                        .WithMany()
+                        .HasForeignKey("ServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Entities.Client", b =>
                 {
                     b.HasOne("Domain.Entities.City", "City")
@@ -177,6 +321,22 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vender", b =>
+                {
+                    b.HasOne("Domain.Entities.Hotel", "Hotel")
+                        .WithMany()
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Hotel", b =>
+                {
+                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }

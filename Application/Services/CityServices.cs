@@ -6,19 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces;
+
 
 namespace Application.Services
 {
-    public interface ICityService
-    {
-        Task<IEnumerable<CityDto>> GetAllAsync();
-        Task<CityDto?> GetById(Guid id);
-        Task<CityDto?> UpdateByIdAsync(Guid id, UpdateCityRequestDto updateCityRequestDto);
-        Task<CityDto> CreateAsync(AddCityRequestDto addCityRequestDto);
-        Task<bool> DeleteByIdAsync(Guid id);
-
-    }
-    public class CityServices : ICityService
+    public class CityServices : ICityServices
     {
         private readonly ICityRepository _cityRepository;
         public CityServices(ICityRepository cityRepository)
@@ -34,7 +27,7 @@ namespace Application.Services
                 Id = city.Id,
                 Name = city.Name,
                 CreatedAt = city.CreatedAt,
-                UpdateAt = city.UpdateAt
+                UpdatedAt = city.UpdatedAt
             });
 
             return citiesDto;
@@ -69,7 +62,7 @@ namespace Application.Services
                 Id = city.Id,
                 Name = city.Name,
                 CreatedAt = city.CreatedAt,
-                UpdateAt = city.UpdateAt
+                UpdatedAt = city.UpdatedAt
             };
             return cityDto;
         }

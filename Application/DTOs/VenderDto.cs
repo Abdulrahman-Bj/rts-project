@@ -15,6 +15,6 @@ namespace Application.DTOs
         public string Username { get; set; }
         public HotelDto Hotel { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime? UpdateAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

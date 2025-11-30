@@ -17,5 +17,6 @@ namespace Domain.IRepositories
 
         Task<Hotel?> UpdateByIdAsync(Guid id, Hotel hotel);
         Task<bool> DeleteByIdAsync(Guid id);
+
     }
 }

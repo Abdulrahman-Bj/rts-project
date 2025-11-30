@@ -7,18 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces;
 
 namespace Application.Services
 {
-    public interface IHotelServices
-    {
-        Task<IEnumerable<HotelDto>> GetAllAsync(IDictionary<string, string> query);
-
-        Task<HotelDto?> GetById(Guid id);
-        Task<HotelDto> CreateAsync(AddHotelRequestDto addHotelRequestDto);
-        Task<HotelDto?> UpdateByIdAsync(Guid id, UpdateHotelRequestDto updateHotelRequest);
-        Task<bool> DeleteByIdAsync(Guid id);
-    }
     public class HotelServices : IHotelServices
     {
         private readonly IHotelRepository hotelRepository;

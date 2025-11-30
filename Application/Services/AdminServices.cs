@@ -7,18 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces;
 
 namespace Application.Services
 {
-    public interface IAdminServices
-    {
-        Task<IEnumerable<AdminDto>> GetAllAsync(IDictionary<string, string> query);
-
-        Task<AdminDto?> GetById(Guid id);
-        Task<AdminDto> CreateAsync(AddAdminRequestDto addAdminRequestDto);
-        Task<AdminDto?> UpdateByIdAsync(Guid id, UpdateAdminRequestDto updateAdminRequestDto);
-           Task<bool> DeleteByIdAsync(Guid id);
-    }
     public class AdminServices : IAdminServices
     {
         private readonly IAdminRepository adminRepository;

@@ -1,5 +1,5 @@
 ﻿using Application.DTOs;
-using Application.Services;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,12 +7,12 @@ namespace CustomerServicesAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class CityController : ControllerBase
+    public class CityController : BaseController
     {
-        private readonly ICityService cityService;
+        private readonly ICityServices cityService;
 
-        public CityController(ICityService cityService)
-        {
+        public CityController(ICityServices cityService) 
+        { 
             this.cityService = cityService;
         }
 
@@ -20,7 +20,7 @@ namespace CustomerServicesAPI.Controllers
         public async Task<IActionResult> GetAllCities()
         {
             var cities = await cityService.GetAllAsync();
-            return Ok(cities);
+            return ApiOk(cities);
         }
 
         [HttpGet("{id}")]
@@ -31,7 +31,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(city);
+            return ApiOk(city);
         }
 
         [HttpPost]
@@ -49,7 +49,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(updatedCity);
+            return ApiOk(updatedCity);
         }
 
         [HttpDelete("{id}")]

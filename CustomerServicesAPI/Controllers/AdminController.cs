@@ -1,5 +1,5 @@
 ﻿using Application.DTOs;
-using Application.Services;
+using Application.Interfaces;
 using Domain.IRepositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ namespace CustomerServicesAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class AdminController : ControllerBase
+    public class AdminController : BaseController
     {
         private readonly IAdminServices adminServices;
 
@@ -22,7 +22,7 @@ namespace CustomerServicesAPI.Controllers
         {
             var queryParams = Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
             var admins = await adminServices.GetAllAsync(queryParams);
-            return Ok(admins);
+            return ApiOk(admins);
         }
 
         [HttpGet("{id}")]
@@ -33,7 +33,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(admin);
+            return ApiOk(admin);
         }
 
         [HttpPost]
@@ -51,7 +51,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(updatedAdmin);
+            return ApiOk(updatedAdmin);
         }
 
         [HttpDelete("{id}")]

@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="FluentValidation" Version="12.1.0" />
+	  <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.22">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,11 +17,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Uploads\Rooms\" />
+    <Folder Include="Uploads\Services\" />
   </ItemGroup>
 
 </Project>

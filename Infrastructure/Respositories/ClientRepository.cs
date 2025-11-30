@@ -65,7 +65,7 @@ namespace Infrastructure.Respositories
             exitingClient.Name = client.Name;
             exitingClient.CityId = client.CityId;
             exitingClient.Type = client.Type;
-            exitingClient.UpdateAt = DateTime.UtcNow;
+            exitingClient.UpdatedAt = DateTime.UtcNow;
 
             await dbContext.SaveChangesAsync();
 

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Hotel
+    public class Hotel : General
     {
-        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -19,11 +18,9 @@ namespace Domain.Entities
 
         public string[] Images { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
-        public DateTime? UpdateAt { get; set; }
 
         // Navigation properties
+        public ICollection<Room> Rooms { get; set; } = new List<Room>();
         public City City { get; set; }
     }
 }

@@ -38,8 +38,29 @@ namespace Application.Mappings
 
             // room mappings
             CreateMap<Room, RoomDto>().ReverseMap();
-            CreateMap<AddRoomRequestDto, Room>().ReverseMap();
+            CreateMap<AddRoomRequestDto, Room>().ForMember(dest => dest.CoverImage, opt => opt.Ignore())
+            .ForMember(dest => dest.Images, opt => opt.Ignore());
             CreateMap<UpdateRoomRequestDto, Room>().ReverseMap();
+            CreateMap<Room, GetRoomResponseDto>().ForMember(dest => dest.ConvertedDailyPrice, opt => opt.MapFrom((src, dest, destMember, context) => src.ApplyDiscount(src.DailyPrice) / (decimal)context.Items["Rate"])).
+                ForMember(dest => dest.ConvertedWeeklyPrice, opt => opt.MapFrom((src, dest, destMember, context) => src.ApplyDiscount(src.WeeklyPrice) / (decimal)context.Items["Rate"])).
+                ForMember(dest => dest.ConvertedMonthlyPrice, opt => opt.MapFrom((src, dest, destMember, context) => src.ApplyDiscount(src.MonthlyPrice) / (decimal)context.Items["Rate"]));
+            CreateMap<RoomImage, RoomImageDto>().ReverseMap();
+
+            // service mappings
+            CreateMap<Service, ServiceDto>().ReverseMap();
+            CreateMap<AddServiceRequestDto, Service>().ReverseMap();
+            CreateMap<UpdateServiceRequestDto, Service>().ReverseMap();
+
+            // reservation mappings
+            CreateMap<AddReservationRequestDto, Reservation>().ReverseMap();
+            CreateMap<UpdateReservationRequestDto, Reservation>().ReverseMap();
+            CreateMap<Reservation, ReservationDto>().ReverseMap();
+            CreateMap<Reservation, ReservationCalendarDto>().ReverseMap();
+
+            // currency mappings
+            CreateMap<AddCurrencyRequestDto, Currency>().ReverseMap();
+            CreateMap<UpdateCurrencyRequestDto, Currency>().ReverseMap();
+            CreateMap<Currency, CurrencyDto>().ReverseMap();
         }
     }
 }

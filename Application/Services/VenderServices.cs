@@ -7,18 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces;
 
 namespace Application.Services
 {
-    public interface IVenderServices
-    {
-        Task<IEnumerable<VenderDto>> GetAllAsync(IDictionary<string, string> query);
-
-        Task<VenderDto?> GetById(Guid id);
-        Task<VenderDto> CreateAsync(AddVenderRequestDto addVenderRequestDto);
-        Task<VenderDto?> UpdateByIdAsync(Guid id, UpdateVenderRequestDto updateVenderRequestDto);
-        Task<bool> DeleteByIdAsync(Guid id);
-    }
     public class VenderServices : IVenderServices
     {
         private readonly IVenderRepository venderRepository;
@@ -39,7 +31,6 @@ namespace Application.Services
             }
 
             var venderEntity = mapper.Map<Vender>(addVenderRequestDto);
-
             var createdVender = await venderRepository.CreateAsync(venderEntity);
 
             return mapper.Map<VenderDto>(createdVender);

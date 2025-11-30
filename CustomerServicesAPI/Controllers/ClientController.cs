@@ -1,5 +1,5 @@
 ﻿using Application.DTOs;
-using Application.Services;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +7,7 @@ namespace CustomerServicesAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
+    public class ClientController : BaseController
     {
         private readonly IClientService clientService;
 
@@ -21,7 +21,7 @@ namespace CustomerServicesAPI.Controllers
         {
             var queryParams = Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
             var clients = await clientService.GetAllAsync(queryParams);
-            return Ok(clients);
+            return ApiOk(clients);
         }
 
         [HttpGet("{id}")]
@@ -32,7 +32,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(client);
+            return ApiOk(client);
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(updatedClient);
+            return ApiOk(updatedClient);
         }
 
         [HttpDelete("{id}")]

@@ -63,7 +63,7 @@ namespace Infrastructure.Respositories
             existingVender.Username = vender.Username;
             existingVender.Name = vender.Name;
             existingVender.HotelId = vender.HotelId;
-            existingVender.UpdateAt = vender.UpdateAt;
+            existingVender.UpdatedAt = vender.UpdatedAt;
             await dbContext.SaveChangesAsync();
 
             return existingVender;

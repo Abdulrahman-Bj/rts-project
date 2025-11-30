@@ -14,5 +14,6 @@ namespace Domain.Entities
 
         // Navigation property
         public City City { get; set; }
+        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

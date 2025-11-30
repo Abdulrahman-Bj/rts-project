@@ -13,6 +13,6 @@ namespace Application.DTOs
         public string Name { get; set; }
         public Guid CityId { get; set; }
         public string Type => "Client";
-        public DateTime? UpdateAt => DateTime.UtcNow;
+        public DateTime? UpdatedAt => DateTime.UtcNow;
     }
 }

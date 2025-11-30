@@ -1,5 +1,5 @@
 ﻿using Application.DTOs;
-using Application.Services;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +7,7 @@ namespace CustomerServicesAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class VenderController : ControllerBase
+    public class VenderController : BaseController
     {
         private readonly IVenderServices venderServices;
 
@@ -21,7 +21,7 @@ namespace CustomerServicesAPI.Controllers
         {
             var queryParams = Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
             var venders = await venderServices.GetAllAsync(queryParams);
-            return Ok(venders);
+            return ApiOk(venders);
         }
 
         [HttpGet("{id}")]
@@ -32,7 +32,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(vender);
+            return ApiOk(vender);
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace CustomerServicesAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(updatedVender);
+            return ApiOk(updatedVender);
         }
 
         [HttpDelete("{id}")]
