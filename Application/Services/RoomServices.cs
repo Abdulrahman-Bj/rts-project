@@ -39,7 +39,7 @@ namespace Application.Services
             var roomEntity = mapper.Map<Room>(addRoomRequestDto);
 
             var images = new List<RoomImage>();
-            string[] allowedImages = { ".jpg", ".jgpj" };
+            string[] allowedImages = { ".jpg", ".png", ".jgpj" };
             foreach (var image in addRoomRequestDto.Images)
             {
                 var name = await fileServices.SaveFileAsync(image, allowedImages, "Rooms");

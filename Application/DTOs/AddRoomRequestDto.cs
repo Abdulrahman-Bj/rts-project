@@ -35,7 +35,7 @@ namespace Application.DTOs
         public decimal MonthlyPrice { get; set; }
 
         public int? Discount { get; set; }
-        public DiscountTypes? DiscountType { get; set; }
+        public string? DiscountType { get; set; }
 
 
         public ICollection<Guid> ServiceIds { get; set; }

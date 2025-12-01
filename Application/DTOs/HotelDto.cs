@@ -15,10 +15,10 @@ namespace Application.DTOs
 
         public string Address { get; set; }
 
-        public string CoverImage { get; set; }
+        public HotelImageDto CoverImage { get; set; }
 
         public City City { get; set; }
-        public string[] Images { get; set; }
+        public ICollection<HotelImageDto> Images { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

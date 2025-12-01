@@ -15,6 +15,8 @@ namespace Application.DTOs
         public string CountryCode { get; set; }
         public string Name { get; set; }
 
+        public string Password { get; set; }
+        public string PasswordConfirm { get; set; }
         public Guid CityId { get; set; }
 
         public string Type => "Client";

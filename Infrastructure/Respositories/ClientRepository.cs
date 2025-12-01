@@ -66,7 +66,8 @@ namespace Infrastructure.Respositories
             exitingClient.CityId = client.CityId;
             exitingClient.Type = client.Type;
             exitingClient.UpdatedAt = DateTime.UtcNow;
-
+            exitingClient.Password = client.Password;
+            exitingClient.PasswordConfirm = client.PasswordConfirm;
             await dbContext.SaveChangesAsync();
 
             return exitingClient;

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
+using Infrastructure.Services;
 
 namespace Application.Services
 {
@@ -15,17 +16,31 @@ namespace Application.Services
     {
         private readonly IHotelRepository hotelRepository;
         private readonly IMapper mapper;
+        private readonly IFileServices fileServices;
 
-        public HotelServices(IHotelRepository hotelRepository, IMapper mapper)
+        public HotelServices(IHotelRepository hotelRepository, IMapper mapper, IFileServices fileServices)
         {
             this.hotelRepository = hotelRepository;
             this.mapper = mapper;
+            this.fileServices = fileServices;
         }
 
         public async Task<HotelDto> CreateAsync(AddHotelRequestDto addHotelRequestDto)
         {
             var hotelEntity = mapper.Map<Hotel>(addHotelRequestDto);
 
+            var images = new List<HotelImage>();
+            string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+            foreach (var image in addHotelRequestDto.Images)
+            {
+                var imageName = await fileServices.SaveFileAsync(image, allowedExtensions, "Hotels");
+                images.Add(new HotelImage
+                {
+                    Name = imageName,
+                });
+            }
+            hotelEntity.Images = images;
+            hotelEntity.CoverImage = images.First();
             var createdHotel = await hotelRepository.CreateAsync(hotelEntity);
 
             return mapper.Map<HotelDto>(createdHotel);

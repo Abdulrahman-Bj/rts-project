@@ -25,6 +25,7 @@ namespace Application.Converters
             return new City
             {
                 Name = dto.Name,
+                CreatedAt = dto.CreatedAt
             };
         }
 

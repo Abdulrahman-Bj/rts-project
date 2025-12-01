@@ -28,8 +28,10 @@ namespace Application.Mappings
 
             // hotel mappings
             CreateMap<Hotel, HotelDto>().ReverseMap();
-            CreateMap<AddHotelRequestDto, Hotel>().ReverseMap();
+            CreateMap<AddHotelRequestDto, Hotel>().ForMember(dest => dest.CoverImage, opt => opt.Ignore())
+                .ForMember(dest => dest.Images, opt => opt.Ignore());;
             CreateMap<UpdateHotelRequestDto, Hotel>().ReverseMap();
+            CreateMap<HotelImage, HotelImageDto>().ReverseMap();
 
             // vender mappings
             CreateMap<Vender, VenderDto>().ReverseMap();

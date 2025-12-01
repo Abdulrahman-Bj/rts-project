@@ -3,6 +3,7 @@ using Infrastructure.Data;
 using Infrastructure.Respositories;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,22 @@ namespace Infrastructure.Extentions
         {
             services.AddDbContext<APIServicesDbContext>(options =>
             {
-                options.UseSqlServer("Server=ABDULRAHMAN\\SQLEXPRESS01;Database=APIReservationServices;TrustServerCertificate=True;Trusted_Connection=true", sqlOptions => sqlOptions.MigrationsAssembly("Infrastructure")); ;
-        });
+                options.UseSqlServer(
+                    "Server=localhost;Database=APIReservationServices;User Id=sa;Password=AbdulrahmanBj321;TrustServerCertificate=True;",
+                    sqlOptions => sqlOptions
+                        .MigrationsAssembly("Infrastructure")
+                        .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)
+                );    
+            });
+            services.AddDbContext<ApiAuthDbContext>(options =>
+            {
+                options.UseSqlServer(
+                    "Server=localhost;Database=APIAuthReservationServices;User Id=sa;Password=AbdulrahmanBj321;TrustServerCertificate=True;",
+                    sqlOptions => sqlOptions
+                        .MigrationsAssembly("Infrastructure")
+                        .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)
+                );    
+            });
             services.AddClientRepository();
             services.AddCityRepository();
             services.AddAdminRepository();

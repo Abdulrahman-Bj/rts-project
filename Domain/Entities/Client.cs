@@ -9,6 +9,8 @@ namespace Domain.Entities
     public sealed class Client : User
     {
         public string Phone { get; set; }
+        public string Password { get; set; }
+        public string PasswordConfirm { get; set; }
         public string CountryCode { get; set; }
         public Guid CityId { get; set; }
 

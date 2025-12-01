@@ -33,7 +33,7 @@ namespace Application.Extentions
             services.AddCityService();
             services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfiles>());
             services.AddFluentValidationAutoValidation();
-            services.AddValidatorsFromAssembly(typeof(AddReservationValidator).Assembly);
+            services.AddValidatorsFromAssembly(typeof(AddReservationValidation).Assembly);
 
             return services;
         }

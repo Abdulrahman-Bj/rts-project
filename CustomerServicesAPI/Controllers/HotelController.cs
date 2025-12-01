@@ -19,7 +19,7 @@ namespace CustomerServicesAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAdmins([FromQuery] string? name, [FromQuery] Guid? cityId, [FromQuery] string? page, string? limit, string? sort)
+        public async Task<IActionResult> GetAllHotels([FromQuery] string? name, [FromQuery] Guid? cityId, [FromQuery] string? page, string? limit, string? sort)
         {
             var queryParams = Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
             var hotels = await hotelServices.GetAllAsync(queryParams);

@@ -44,7 +44,7 @@ namespace Infrastructure.Respositories
 
         public async Task<IEnumerable<Hotel>> GetAllAsync(IDictionary<string, string> query)
         {
-            var hotels = dbContext.Hotels.Include(x => x.City).AsQueryable();
+            var hotels = dbContext.Hotels.Include(x => x.City).Include(x => x.CoverImage).Include(x => x.Images).AsQueryable();
 
             var queryParams = query.ToDictionary();
 
@@ -55,7 +55,7 @@ namespace Infrastructure.Respositories
 
         public async Task<Hotel?> GetByIdAsync(Guid id)
         {
-            return await dbContext.Hotels.Include(x => x.City).FirstOrDefaultAsync(x => x.Id == id);
+            return await dbContext.Hotels.Include(x => x.City).Include(x => x.CoverImage).Include(x => x.Images).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Hotel?> UpdateByIdAsync(Guid id, Hotel hotel)
@@ -69,7 +69,7 @@ namespace Infrastructure.Respositories
 
             exitingHotel.Name = hotel.Name;
             exitingHotel.CityId = hotel.CityId;
-            exitingHotel.CoverImage = hotel.CoverImage;
+            exitingHotel.CoverImageId = hotel.CoverImageId;
             exitingHotel.Images = hotel.Images;
             exitingHotel.Address = hotel.Address;
             exitingHotel.UpdatedAt = hotel.UpdatedAt;

@@ -69,7 +69,7 @@ namespace Infrastructure.Respositories
 
         public async Task<IEnumerable<Room>> GetRoomsByHotelIdAsync(Guid hotelId, IDictionary<string, string> query)
         {
-            var rooms = dbContext.Rooms.Where(x => x.HotelId == hotelId).AsQueryable();
+            var rooms = dbContext.Rooms.Where(x => x.HotelId == hotelId).Include(x => x.Images).Include(x =>x.CoverImage).AsQueryable();
 
             var queryParams = query.ToDictionary();
 

@@ -12,7 +12,7 @@ namespace Infrastructure.Data
     public class APIServicesDbContext : DbContext
     {
 
-        public APIServicesDbContext(DbContextOptions options) : base (options)
+        public APIServicesDbContext(DbContextOptions<APIServicesDbContext>  options) : base (options)
         {
 
         }
@@ -23,6 +23,7 @@ namespace Infrastructure.Data
         public DbSet<Vender> Venders { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<HotelImage> HotelImages { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomImage> RoomImages { get; set; }
         public DbSet<Currency> Currencies { get; set; }
@@ -30,6 +31,7 @@ namespace Infrastructure.Data
         public DbSet<Service> Services { get; set; }
 
         public DbSet<Reservation> Reservations { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

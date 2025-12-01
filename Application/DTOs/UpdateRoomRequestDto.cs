@@ -35,7 +35,7 @@ namespace Application.DTOs
 
 
         public int? Discount { get; set; }
-        public DiscountTypes? DiscountType { get; set; }
+        public string? DiscountType { get; set; }
 
 
         public DateTime UpdatedAt => DateTime.UtcNow;

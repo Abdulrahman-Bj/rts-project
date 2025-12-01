@@ -8,6 +8,7 @@ namespace CustomerServicesAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    
     public class AdminController : BaseController
     {
         private readonly IAdminServices adminServices;
