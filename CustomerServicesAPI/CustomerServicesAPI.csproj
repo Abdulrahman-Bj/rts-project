@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Uploads\Hotels\" />
     <Folder Include="Uploads\Rooms\" />
     <Folder Include="Uploads\Services\" />
   </ItemGroup>
